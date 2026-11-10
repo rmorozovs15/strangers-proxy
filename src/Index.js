@@ -4,6 +4,12 @@ const app = express();
 
 app.use(express.json());
 
+app.get('/download/proxy.pac', (req, res) => {
+    res.set('Content-Type', 'application/x-ns-proxy-autoconfig');
+    res.set('Content-Disposition', 'attachment; filename="proxy.pac"');
+    res.sendFile(require('path').join(__dirname, '..', 'proxy.pac'));
+});
+
 app.all('*', async (req, res) => {
     const targetUrl = 'https://api.thestrangerx.com' + req.originalUrl;
     

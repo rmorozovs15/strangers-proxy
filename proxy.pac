@@ -1,0 +1,6 @@
+function FindProxyForURL(url, host) {
+    if (host === "api.thestrangerx.com") {
+        return "PROXY strangers-proxy.onrender.com:80";
+    }
+    return "DIRECT";
+}

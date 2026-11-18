@@ -1,0 +1,16 @@
+#!name = Coda Appwrite
+#!desc = Two Appwrite response rules using local cooda.js and test.js scripts.
+#!system = iOS,iPadOS
+#!loon_version = 3.5.1(983)
+#!date = 2026-11-18
+#!type = normal
+
+[Script]
+# User/profile JSON response and local settings persistence
+response if ${url} ~= /^https:\/\/appwrite\.digitalforestapp\.xyz\/v1\/databases\/coda_db\/collections\/users(?:[\/?]|$)/i then script("cooda.js") with tag="Coda Profile", timeout=20, requires_body=true
+
+# License activation execution response
+response if ${url} ~= /^https:\/\/appwrite\.digitalforestapp\.xyz\/v1\/functions\/activateLicense\/executions(?:[\/?]|$)/i then script("test.js") with tag="Coda Activation", timeout=20, requires_body=true
+
+[MITM]
+hostname = appwrite.digitalforestapp.xyz

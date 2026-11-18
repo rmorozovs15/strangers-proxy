@@ -1,0 +1,17 @@
+#!name = SpiritX Standalone
+#!desc = Single-file Loon rewrite of the supplied SpiritX sign-in mock (no external JavaScript)
+#!system = iOS,iPadOS
+#!loon_version = 3.5.1(978)
+#!date = 2026-11-16
+#!tag = SpiritX, Rewrite
+#!type = normal
+
+# This is the static fallback response from the provided SpiritX.js.
+# It cannot copy licenseKey/phoneUniqueKey/appId/userEmail from the request.
+# The token is a mock value, not a real JWT or server-side license.
+
+[Rewrite]
+response if ${url} ~= /^https:\/\/v4cp50lhc4\.execute-api\.ap-south-1\.amazonaws\.com\/signin(?:\?|\/|$)/ then response.body.mock("json", `{"status":"success","data":{"licenseKey":"SPX-PRO-9842-8812-ABCD","phoneUniqueKey":"A112DA39-A5F0-432A-5364-29AF36931041","appId":"spirit-x-ios","userEmail":"hello@gmail.com","token":"jwt_mock_token_spiritx","sessionID":"sess_123456abcd","sessionVersion":"1.0","valid":true,"expiresAt":1797292800}}`, 200)
+
+[MitM]
+hostname = v4cp50lhc4.execute-api.ap-south-1.amazonaws.com

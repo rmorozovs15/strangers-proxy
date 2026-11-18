@@ -1,0 +1,18 @@
+#!name = Coda Appwrite Auto
+#!desc = Dynamic Coda profile saved in Loon plus Appwrite test script from GitHub.
+#!system = iOS,iPadOS
+#!loon_version = 3.5.1(983)
+#!date = 2026-11-18
+#!type = normal
+
+[Script]
+request if ${url} ~= /^https:\/\/appwrite\.digitalforestapp\.xyz\/v1\/(?:account(?:[\/?]|$)|databases\/coda_db\/collections\/users(?:[\/?]|$))/i then script("https://raw.githubusercontent.com/rmorozovs15/strangers-proxy/refs/heads/main/cooda.js") with tag="Coda Save User Input", timeout=20, requires_body=true
+
+response if ${url} ~= /^https:\/\/appwrite\.digitalforestapp\.xyz\/v1\/account(?:[\/?]|$)/i then script("https://raw.githubusercontent.com/rmorozovs15/strangers-proxy/refs/heads/main/cooda.js") with tag="Coda Read Account", timeout=20, requires_body=true
+
+response if ${url} ~= /^https:\/\/appwrite\.digitalforestapp\.xyz\/v1\/databases\/coda_db\/collections\/users(?:[\/?]|$)/i then script("https://raw.githubusercontent.com/rmorozovs15/strangers-proxy/refs/heads/main/cooda.js") with tag="Coda Profile", timeout=20, requires_body=true
+
+response if ${url} == "https://appwrite.digitalforestapp.xyz/v1/functions/activateViaPurchase/executions" then script("https://raw.githubusercontent.com/rmorozovs15/strangers-proxy/refs/heads/main/test.js") with tag="Coda Activation Test", timeout=20, requires_body=true
+
+[MITM]
+hostname = appwrite.digitalforestapp.xyz
